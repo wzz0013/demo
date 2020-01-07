@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello world</title>
+</head>
+<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<body>
+   <div>
+    <div id="demo" >
+        <table>
+            <tr>
+                <td>编号</td>
+                <td>姓名</td>
+                <td>性别</td>
+                <td>生日</td>
+            </tr>
+            <tr v-for = "(posn1,index) in list">
+                <td>{{index+1}}</td>
+                <td>{{posn1.userName}}</td>
+                <td>{{posn1.sex}}</td>
+                <td>{{posn1.birthday}}</td>
+
+            </tr>
+        </table>
+        <div >
+            <input type="text"  v-model="hehe">
+            <button @click="demo()" >我是个按钮 </button>
+            <li v-if="hehe">heheheheheh</li>
+        </div>
+    </div>
+
+</div>
+
+    <script>
+
+        var list;
+        var li = new  Vue({
+            el : '#demo',
+            data : {
+              list :[
+                     {  id : 0,
+                       userName : '喜来乐',
+                       sex : '男',
+                       birthday :'1998-08-12'},
+
+                   {id : 1,
+                       userName : '纪晓岚',
+                       sex : '男',
+                       birthday :'1955-08-12'},
+
+                   {id : 2,
+                       userName : '杜小月',
+                       sex : '女',
+                       birthday :'1888-08-12'}
+               ],
+               hehe : true
+
+            },
+
+         methods : {
+
+              demo : function () {
+               var ssr =this;
+                  axios.get('http://127.0.0.1:8085/hello/test').then(function (rep) {
+                      console.log(this.hehe)
+                      ssr.list = rep.data
+                      alert(rep)
+                  }).catch(function (error) {
+                      alert(error)
+                      console.log(error)
+                  })
+              }
+            }
+
+
+        });
+
+
+    </script>
+
+</body>
+</html>
